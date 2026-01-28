@@ -7,7 +7,9 @@
     "allowImportingTsExtensions": true,
     "erasableSyntaxOnly": true,
     "verbatimModuleSyntax": true,
-    "noEmit": true
+    "noEmit": true,
+    "noImplicitAny": true,
+    "strict": true
   },
   "exclude": ["./public/", "./greenwood/", "node_modules"]
 }

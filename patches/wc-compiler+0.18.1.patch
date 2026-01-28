@@ -1,0 +1,14 @@
+diff --git a/node_modules/wc-compiler/package.json b/node_modules/wc-compiler/package.json
+index f49fcdc..bbf9fbf 100644
+--- a/node_modules/wc-compiler/package.json
++++ b/node_modules/wc-compiler/package.json
+@@ -16,7 +16,8 @@
+     },
+     "./register": "./src/register.js",
+     "./src/jsx-loader.js": "./src/jsx-loader.js",
+-    "./jsx-runtime": "./src/jsx-runtime.ts"
++    "./jsx-runtime": "./src/jsx-runtime.ts",
++    "./dom-shim.js": "./src/dom-shim.js"
+   },
+   "author": "Owen Buckley <owen@thegreenhouse.io>",
+   "keywords": [
