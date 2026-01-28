@@ -1,0 +1,30 @@
+name: Continuous Integration
+
+on: [pull_request]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node: [24]
+
+    steps:
+      - uses: actions/checkout@v6
+      - name: Use Node.js ${{ matrix.node }}
+        uses: actions/setup-node@v6
+        with:
+          node-version: ${{ matrix.node }}
+      - name: Installing project dependencies
+        run: |
+          npm ci
+      # - name: Format
+      #   run: |
+      #     npm run format:check
+      # - name: Lint
+      #   run: |
+      #     npm run lint
+      - name: Check Types
+        run: |
+          npm run check
