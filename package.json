@@ -24,6 +24,6 @@
   "devDependencies": {
     "@greenwood/cli": "~0.34.0-alpha.2",
     "patch-package": "^8.0.1",
-    "typescript": "^5.8.0"
+    "typescript": "^5.9.2"
   }
 }
