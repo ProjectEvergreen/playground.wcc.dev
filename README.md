@@ -10,22 +10,22 @@ Playground repository for [wcc.dev](https://www.wcc.dev) built using [**Greenwoo
 
 ## Commands
 
-To start the development server, run:
+To start the local development server, run:
 
 ```sh
 $ npm run dev
 ```
 
-To generated a production build, run:
+To generate a production build, run:
 
 ```sh
 $ npm run build
 ```
 
-To start a production server, run:
+To start the production server, run:
+
+> _**Note**: make sure you have generated a production build first._
 
 ```sh
-# make sure you've generated a production build first
-
 $ npm run serve
 ```
