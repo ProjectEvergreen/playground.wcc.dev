@@ -16,13 +16,20 @@
   "type": "module",
   "scripts": {
     "dev": "greenwood develop",
-    "build": "greenwood build",
+    "build": "NODE_OPTIONS='--import @greenwood/cli/register' greenwood build",
     "serve": "greenwood serve",
     "check": "tsc",
     "postinstall": "patch-package"
   },
+  "dependencies": {
+    "geist": "^1.2.0",
+    "open-props": "^1.7.23"
+  },
   "devDependencies": {
-    "@greenwood/cli": "~0.34.0-alpha.3",
+    "@greenwood/cli": "~0.34.0-alpha.4",
+    "@greenwood/plugin-css-modules": "^0.34.0-alpha.4",
+    "@greenwood/plugin-import-raw": "^0.34.0-alpha.4",
+    "@greenwood/plugin-import-jsx": "^0.34.0-alpha.4",
     "patch-package": "^8.0.1",
     "typescript": "^5.9.2"
   }
