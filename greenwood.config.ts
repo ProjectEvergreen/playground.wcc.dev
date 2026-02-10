@@ -1,7 +1,7 @@
-import { greenwoodPluginImportRaw } from '@greenwood/plugin-import-raw';
-import { greenwoodPluginCssModules } from '@greenwood/plugin-css-modules';
-import { greenwoodPluginImportJsx } from '@greenwood/plugin-import-jsx';
-import { replBundlerResourcePlugin } from './repl-bundler-plugin.ts';
+import { greenwoodPluginImportRaw } from "@greenwood/plugin-import-raw";
+import { greenwoodPluginCssModules } from "@greenwood/plugin-css-modules";
+import { greenwoodPluginImportJsx } from "@greenwood/plugin-import-jsx";
+import { replBundlerResourcePlugin } from "./repl-bundler-plugin.ts";
 import type { Config } from "@greenwood/cli";
 
 const config: Config = {
@@ -10,8 +10,8 @@ const config: Config = {
     greenwoodPluginCssModules(),
     greenwoodPluginImportRaw(),
     greenwoodPluginImportJsx(),
-    replBundlerResourcePlugin()
-  ]
+    replBundlerResourcePlugin(),
+  ],
 };
 
 export default config;

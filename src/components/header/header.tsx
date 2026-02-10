@@ -1,7 +1,7 @@
-import type { Page } from '@greenwood/cli';
-import wccLogo from '../../assets/wcc-logo.svg?type=raw';
-import mobileMenuIcon from '../../assets/tile.svg?type=raw';
-import styles from './header.module.css';
+import type { Page } from "@greenwood/cli";
+import wccLogo from "../../assets/wcc-logo.svg?type=raw";
+import mobileMenuIcon from "../../assets/tile.svg?type=raw";
+import styles from "./header.module.css";
 
 function getNavItemsHtml(navItems: Page[], isMobile: boolean, currentRoute: string): string {
   const itemClass = isMobile ? styles.mobileMenuListItem : styles.navBarMenuItem;
@@ -9,7 +9,7 @@ function getNavItemsHtml(navItems: Page[], isMobile: boolean, currentRoute: stri
   return navItems
     .map((item) => {
       const { route, label } = item;
-      const isActiveClass = currentRoute === item.route ? 'class="active"' : '';
+      const isActiveClass = currentRoute === item.route ? 'class="active"' : "";
 
       return `
         <li class="${itemClass}">
@@ -17,7 +17,7 @@ function getNavItemsHtml(navItems: Page[], isMobile: boolean, currentRoute: stri
         </li>
       `;
     })
-    .join('');
+    .join("");
 }
 
 export default class Header extends HTMLElement {
@@ -26,33 +26,38 @@ export default class Header extends HTMLElement {
 
   constructor() {
     super();
-    this.currentRoute = '';
+    this.currentRoute = "";
     this.navItems = [];
   }
 
   async connectedCallback() {
-    this.currentRoute = '/playground/';
-    this.navItems = [{
-      id: 'index',
-      title: 'Home',
-      route: 'http://wcc.dev/',
-      label: 'Home',
-    }, {
-      id: 'docs',
-      title: 'Docs',
-      route: 'http://wcc.dev/docs/',
-      label: 'Docs',
-    }, {
-      id: 'examples',
-      title: 'Examples',
-      route: 'http://wcc.dev/examples/',
-      label: 'Examples',
-    }, {
-      id: 'playground',
-      title: 'Playground',
-      route: '/playground/',
-      label: 'Playground',
-    }];
+    this.currentRoute = "/playground/";
+    this.navItems = [
+      {
+        id: "index",
+        title: "Home",
+        route: "http://wcc.dev/",
+        label: "Home",
+      },
+      {
+        id: "docs",
+        title: "Docs",
+        route: "http://wcc.dev/docs/",
+        label: "Docs",
+      },
+      {
+        id: "examples",
+        title: "Examples",
+        route: "http://wcc.dev/examples/",
+        label: "Examples",
+      },
+      {
+        id: "playground",
+        title: "Playground",
+        route: "/playground/",
+        label: "Playground",
+      },
+    ];
     this.render();
   }
 
@@ -112,4 +117,4 @@ export default class Header extends HTMLElement {
   }
 }
 
-customElements.define('wcc-header', Header);
+customElements.define("wcc-header", Header);

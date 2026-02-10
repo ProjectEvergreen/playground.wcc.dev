@@ -1,8 +1,8 @@
-import styles from './social-tray.module.css';
-import discordIcon from '../../assets/discord.svg?type=raw';
-import githubIcon from '../../assets/github.svg?type=raw';
-import twitterIcon from '../../assets/twitter-logo.svg?type=raw';
-import blueskyIcon from '../../assets/bluesky.svg?type=raw';
+import styles from "./social-tray.module.css";
+import discordIcon from "../../assets/discord.svg?type=raw";
+import githubIcon from "../../assets/github.svg?type=raw";
+import twitterIcon from "../../assets/twitter-logo.svg?type=raw";
+import blueskyIcon from "../../assets/bluesky.svg?type=raw";
 
 export default class SocialTray extends HTMLElement {
   connectedCallback() {
@@ -48,10 +48,10 @@ export default class SocialTray extends HTMLElement {
   }
 }
 
-customElements.define('wcc-social-tray', SocialTray);
+customElements.define("wcc-social-tray", SocialTray);
 
 declare global {
   interface HTMLElementTagNameMap {
-    'wcc-social-tray': SocialTray;
+    "wcc-social-tray": SocialTray;
   }
 }

@@ -1,9 +1,9 @@
 [build]
-  publish = "public/"
-  command = "npm run build"
+publish = "public/"
+command = "npm run build"
 
 [build.processing]
-  skip_processing = true
+skip_processing = true
 
 [build.environment]
-  NODE_VERSION = "24.4.0"
+NODE_VERSION = "24.4.0"

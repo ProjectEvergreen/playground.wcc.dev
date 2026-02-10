@@ -1,14 +1,14 @@
 {
   "name": "playground.wcc.dev",
-  "description": "Playground repository for wcc.dev",
   "version": "1.0.0",
-  "author": "Owen Buckley <owen@thegreenhouse.io>",
+  "description": "Playground repository for wcc.dev",
   "keywords": [
-    "WCC",
-    "WC Compiler",
     "REPL",
+    "WC Compiler",
+    "WCC",
     "playground"
   ],
+  "author": "Owen Buckley <owen@thegreenhouse.io>",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/ProjectEvergreen/playground.wcc.dev.git"
@@ -18,7 +18,10 @@
     "dev": "greenwood develop",
     "build": "NODE_OPTIONS='--import @greenwood/cli/register' greenwood build",
     "serve": "greenwood serve",
-    "check": "tsc",
+    "lint": "oxlint",
+    "format": "oxfmt",
+    "format:check": "oxfmt --check",
+    "check": "tsgo",
     "postinstall": "patch-package"
   },
   "dependencies": {
@@ -28,8 +31,11 @@
   "devDependencies": {
     "@greenwood/cli": "~0.34.0-alpha.4",
     "@greenwood/plugin-css-modules": "^0.34.0-alpha.4",
-    "@greenwood/plugin-import-raw": "^0.34.0-alpha.4",
     "@greenwood/plugin-import-jsx": "^0.34.0-alpha.4",
+    "@greenwood/plugin-import-raw": "^0.34.0-alpha.4",
+    "@typescript/native-preview": "^7.0.0-dev.20260209.1",
+    "oxfmt": "^0.28.0",
+    "oxlint": "^1.43.0",
     "patch-package": "^8.0.1",
     "typescript": "^5.9.2"
   }
