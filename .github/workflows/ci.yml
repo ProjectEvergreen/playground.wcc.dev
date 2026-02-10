@@ -19,12 +19,12 @@ jobs:
       - name: Installing project dependencies
         run: |
           npm ci
-      # - name: Format
-      #   run: |
-      #     npm run format:check
-      # - name: Lint
-      #   run: |
-      #     npm run lint
+      - name: Format Check
+        run: |
+          npm run format:check
+      - name: Lint
+        run: |
+          npm run lint
       - name: Check Types
         run: |
           npm run check

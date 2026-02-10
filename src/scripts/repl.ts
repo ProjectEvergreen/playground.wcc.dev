@@ -1,39 +1,39 @@
 // TODO: have this come from WCC
 // import { renderFromInput } from '../../src/wcc.js';
 // TODO: have wc-compiler expose DOM shim through exports maps
-import 'wc-compiler/dom-shim.js';
-import { transform } from 'sucrase';
-import * as acorn from 'acorn';
-import * as walk from 'acorn-walk';
-import { serialize } from 'parse5';
+import "wc-compiler/dom-shim.js";
+import { transform } from "sucrase";
+import * as acorn from "acorn";
+import * as walk from "acorn-walk";
+import { serialize } from "parse5";
 
 // @ts-expect-error
 function isCustomElementDefinitionNode(node) {
   const { expression } = node;
 
   return (
-    expression.type === 'CallExpression' &&
+    expression.type === "CallExpression" &&
     expression.callee &&
     expression.callee.object &&
     expression.callee.property &&
-    expression.callee.object.name === 'customElements' &&
-    expression.callee.property.name === 'define'
+    expression.callee.object.name === "customElements" &&
+    expression.callee.property.name === "define"
   );
 }
 
 // @ts-expect-error
 async function getTagName(moduleContents) {
   const result = transform(moduleContents, {
-    transforms: ['typescript', 'jsx'],
-    jsxRuntime: 'automatic',
+    transforms: ["typescript", "jsx"],
+    jsxRuntime: "automatic",
     production: true,
   });
   let tagName;
 
   walk.simple(
     acorn.Parser.parse(result.code, {
-      ecmaVersion: 'latest',
-      sourceType: 'module',
+      ecmaVersion: "latest",
+      sourceType: "module",
     }),
     {
       ExpressionStatement(node) {
@@ -51,7 +51,7 @@ async function getTagName(moduleContents) {
 // @ts-expect-error
 async function renderComponentRoots(tree, definitions) {
   for (const node of tree.childNodes) {
-    if (node.tagName && node.tagName.indexOf('-') > 0) {
+    if (node.tagName && node.tagName.indexOf("-") > 0) {
       const { attrs, tagName } = node;
 
       if (definitions[tagName]) {
@@ -82,7 +82,7 @@ async function renderComponentRoots(tree, definitions) {
 
       // @ts-expect-error
       attrs.forEach((attr) => {
-        if (attr.name === 'hydrate') {
+        if (attr.name === "hydrate") {
           definitions[tagName].hydrate = attr.value;
         }
       });
@@ -137,7 +137,7 @@ async function initializeCustomElement(
 }
 
 onmessage = async (e) => {
-  console.log('Worker: Message received from main script', { e });
+  console.log("Worker: Message received from main script", { e });
   const input = e.data[0];
   const props = e.data[1] ?? null;
   const wrappingEntryTag = true;
@@ -148,7 +148,7 @@ onmessage = async (e) => {
   try {
     // await renderFromInput(input);
 
-    const blobURL = URL.createObjectURL(new Blob([input], { type: 'application/javascript' }));
+    const blobURL = URL.createObjectURL(new Blob([input], { type: "application/javascript" }));
     const definitions = {};
 
     await import(blobURL);
@@ -164,13 +164,13 @@ onmessage = async (e) => {
 
     // in case the entry point isn't valid
     if (elementInstance) {
-      elementInstance.nodeName = tagName ?? '';
-      elementInstance.tagName = tagName ?? '';
+      elementInstance.nodeName = tagName ?? "";
+      elementInstance.tagName = tagName ?? "";
 
       await renderComponentRoots(
         elementInstance.shadowRoot
           ? {
-              nodeName: '#document-fragment',
+              nodeName: "#document-fragment",
               childNodes: [elementInstance],
             }
           : elementInstance,
@@ -186,7 +186,7 @@ onmessage = async (e) => {
         `
           : serialize(elementInstance);
     } else {
-      console.warn('WARNING: No custom element class found for this entry point.');
+      console.warn("WARNING: No custom element class found for this entry point.");
     }
   } catch (e) {
     console.error(e);
@@ -196,7 +196,7 @@ onmessage = async (e) => {
   if (err) {
     postMessage(err);
   } else {
-    console.log('Worker: Posting message back to main script', { html });
+    console.log("Worker: Posting message back to main script", { html });
     postMessage({ html });
   }
 };

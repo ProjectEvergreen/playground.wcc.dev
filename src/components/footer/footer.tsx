@@ -1,6 +1,6 @@
-import styles from './footer.module.css';
-import '../social-tray/social-tray.tsx';
-import wccLogo from '../../assets/wcc-logo.svg?type=raw';
+import styles from "./footer.module.css";
+import "../social-tray/social-tray.tsx";
+import wccLogo from "../../assets/wcc-logo.svg?type=raw";
 
 export default class Footer extends HTMLElement {
   connectedCallback() {
@@ -22,4 +22,4 @@ export default class Footer extends HTMLElement {
   }
 }
 
-customElements.define('wcc-footer', Footer);
+customElements.define("wcc-footer", Footer);

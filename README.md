@@ -29,3 +29,11 @@ To start the production server, run:
 ```sh
 $ npm run serve
 ```
+
+---
+
+Additionally, before committing the following commands will run as part of Husky pre-commit hooks, but you can also run them manually:
+
+- `npm run lint` - Runs OXLint for JS / TS linting
+- `npm run format` - Runs OXFmt for code formatting
+- `npm run check` - Run TSGO for type-checking
