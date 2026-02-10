@@ -1,11 +1,36 @@
 <html>
   <head>
-    <title>WCC - REPL</title>
+    <meta charset="UTF-8" />
+    <title>WCC</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta property="og:title" content="WCC" />
+    <meta
+      name="description"
+      content="WCC supports server-rendering of web standard Web Components; generating HTML directly from your custom element definitions."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://www.wcc.dev" />
+    <meta property="og:image" content="https://www.wcc.dev/assets/wcc-logo-og.png" />
+    <meta
+      property="og:description"
+      content="WCC supports server-rendering of web standard Web Components; generating HTML directly from your custom element definitions."
+    />
+    <meta name="twitter:site" content="@PrjEvergreen" />
+
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="./styles/theme.css" />
+
     <script type="module" src="./scripts/repl-init.ts " defer></script>
+    <script type="module" src="./components/header/header.tsx" data-gwd-opt="static"></script>
+    <script type="module" src="./components/footer/footer.tsx" data-gwd-opt="static"></script>
   </head>
   <body>
-    <h1>WCC REPL</h1>
+    <wcc-header></wcc-header>
+
+    <h1>WCC Playground</h1>
     <h2>Input</h2>
     <textarea id="input" style="width: 100%; height: 50vh">
       const template = document.createElement('template');
@@ -38,5 +63,7 @@
     </textarea>
     <h2>Output</h2>
     <textarea id="output" style="width: 100%; height: 50vh"></textarea>
+
+    <wcc-footer></wcc-footer>
   </body>
 </html>

@@ -9,7 +9,9 @@
     "verbatimModuleSyntax": true,
     "noEmit": true,
     "noImplicitAny": true,
-    "strict": true
+    "strict": true,
+    "jsx": "preserve",
+    "jsxImportSource": "wc-compiler",
   },
   "exclude": ["./public/", "./greenwood/", "node_modules"]
 }
