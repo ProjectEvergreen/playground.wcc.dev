@@ -27,6 +27,7 @@
   },
   "dependencies": {
     "geist": "^1.2.0",
+    "monaco-editor": "^0.55.1",
     "open-props": "^1.7.23"
   },
   "devDependencies": {
@@ -41,5 +42,8 @@
     "oxlint": "^1.43.0",
     "patch-package": "^8.0.1",
     "typescript": "^5.9.2"
+  },
+  "overrides": {
+    "wc-compiler": "~0.20.0"
   }
 }

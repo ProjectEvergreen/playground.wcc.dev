@@ -1,0 +1,36 @@
+diff --git a/node_modules/@greenwood/cli/src/lifecycles/serve.js b/node_modules/@greenwood/cli/src/lifecycles/serve.js
+index beff516..78acc69 100644
+--- a/node_modules/@greenwood/cli/src/lifecycles/serve.js
++++ b/node_modules/@greenwood/cli/src/lifecycles/serve.js
+@@ -152,12 +152,15 @@ async function getDevServer(compilation) {
+       // when looping through and sharing responses between plugins
+       const response = await resourcePlugins.reduce(async (responsePromise, plugin) => {
+         const intermediateResponse = await responsePromise;
++        // Create a single snapshot to avoid multiple clone() calls failing on exhausted bodies
++        const responseSnapshot = intermediateResponse.clone();
+         if (
+           plugin.shouldIntercept &&
+-          (await plugin.shouldIntercept(url, request, intermediateResponse.clone()))
++          (await plugin.shouldIntercept(url, request, responseSnapshot.clone()))
+         ) {
+-          const current = await plugin.intercept(url, request, await intermediateResponse.clone());
+-          const merged = mergeResponse(intermediateResponse.clone(), current);
++          console.log(`Intercepting response for ${url.pathname} with plugin ${plugin.name}`);
++          const current = await plugin.intercept(url, request, await responseSnapshot.clone());
++          const merged = mergeResponse(responseSnapshot, current);
+ 
+           return Promise.resolve(merged);
+         } else {
+diff --git a/node_modules/@greenwood/cli/src/plugins/resource/plugin-standard-javascript.js b/node_modules/@greenwood/cli/src/plugins/resource/plugin-standard-javascript.js
+index 0f54727..dbf1ea8 100644
+--- a/node_modules/@greenwood/cli/src/plugins/resource/plugin-standard-javascript.js
++++ b/node_modules/@greenwood/cli/src/plugins/resource/plugin-standard-javascript.js
+@@ -78,7 +78,7 @@ const greenwoodPluginStandardJavascript = [
+     type: "rollup",
+     name: "plugin-standard-javascript:rollup",
+     provider: (compilation) => {
+-      return compilation.config.optimization !== "none" ? [terser()] : [];
++      return compilation.config.optimization !== "none" ? [] : [];
+     },
+   },
+ ];
