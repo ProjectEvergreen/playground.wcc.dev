@@ -57,6 +57,9 @@ class ReplBundlerResource {
       format: "esm",
     });
 
+    // Create a buffer from the code string to avoid body consumption issues
+    // const codeBuffer = Buffer.from(output[0].code, 'utf-8');
+
     return new Response(output[0].code, {
       headers: {
         "Content-Type": "text/javascript",
