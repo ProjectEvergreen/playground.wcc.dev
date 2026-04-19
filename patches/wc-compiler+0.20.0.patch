@@ -1,41 +1,30 @@
 diff --git a/node_modules/wc-compiler/src/jsx.d.ts b/node_modules/wc-compiler/src/jsx.d.ts
-index 4c9286b..de2556d 100644
+index 4c9286b..48c77cb 100644
 --- a/node_modules/wc-compiler/src/jsx.d.ts
 +++ b/node_modules/wc-compiler/src/jsx.d.ts
-@@ -20,12 +20,31 @@ type PopoverTargetAttributes = {
-   popovertargetaction?: PopoverTargetAction;
+@@ -9,13 +9,15 @@ type ElementAttributes<E extends HTMLElement> = {
+   class?: string;
  };
  
--// map each HTML tag to its attributes
++type PopoverState = 'auto' | 'manual' | 'hint';
+ type PopoverTargetAction = 'show' | 'hide' | 'toggle';
+-type PopoverTargetAttributes = {
 +type PopoverAttributes = {
-+  // Popover API attribute
-+  popover?: 'auto' | 'manual';
-+};
-+
-+// map each HTML tag to its attributes, excluding button and div which we'll define explicitly
+   // have to manage this manually, can't seem to get this from TypeScript itself (not sure if just skill issue? :D)
+   // https://github.com/microsoft/TypeScript-DOM-lib-generator/issues/1790
+   // it should be there per https://github.com/mdn/browser-compat-data/pull/21875
+   // https://github.com/ProjectEvergreen/wcc/issues/236
+   // per the spec, this should only apply to <button> and <input> elements.
++  popover?: PopoverState;
+   popovertarget?: string;
+   popovertargetaction?: PopoverTargetAction;
+ };
+@@ -23,7 +25,7 @@ type PopoverTargetAttributes = {
+ // map each HTML tag to its attributes
  type IntrinsicElementsFromDom = {
--  [E in keyof HTMLElementTagNameMap]: ElementAttributes<HTMLElementTagNameMap[E]> &
+   [E in keyof HTMLElementTagNameMap]: ElementAttributes<HTMLElementTagNameMap[E]> &
 -    (E extends 'button' | 'input' ? PopoverTargetAttributes : {});
-+  [E in keyof HTMLElementTagNameMap as E extends 'button' | 'div' ? never : E]: ElementAttributes<HTMLElementTagNameMap[E]> &
-+    (E extends 'input' ? PopoverTargetAttributes : {});
++    (E extends 'button' | 'input' ? PopoverAttributes : {});
  };
  
  declare namespace JSX {
--  interface IntrinsicElements extends IntrinsicElementsFromDom {}
-+  interface IntrinsicElements extends IntrinsicElementsFromDom {
-+    // Explicitly define button and div with full popover support
-+    button: any & {
-+      class?: string;
-+      popovertarget?: string;
-+      popovertargetaction?: 'show' | 'hide' | 'toggle';
-+      popover?: 'auto' | 'manual';
-+    };
-+    div: any & {
-+      class?: string;
-+      popover?: 'auto' | 'manual';
-+      popovertarget?: string;
-+      popovertargetaction?: 'show' | 'hide' | 'toggle';
-+    };
-+  }
- }
-\ No newline at end of file
