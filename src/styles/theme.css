@@ -52,12 +52,13 @@ body {
   background-color: var(--color-background);
 }
 
+/* 
 main {
   max-width: 1440px;
   margin: 20px auto;
   width: 100%;
   padding: 0 1rem;
-}
+} */
 
 h1,
 h2,
