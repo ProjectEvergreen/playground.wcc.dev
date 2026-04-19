@@ -1,7 +1,7 @@
 import * as monaco from "monaco-editor/esm/vs/editor/editor.main.js";
 
-const inputContainer = document.getElementById("input-container") as HTMLDivElement;
-const outputContainer = document.getElementById("output-container") as HTMLDivElement;
+const inputContainer = document.getElementById("input-content") as HTMLDivElement;
+const outputContainer = document.getElementById("output-content") as HTMLDivElement;
 const workerUrl = new URL("./repl.ts", import.meta.url);
 const worker = new Worker(workerUrl, { type: "module" });
 
@@ -17,7 +17,7 @@ const inputContents = `
     </style>
 
     <footer class="footer">
-      <h4>My Blog &copy; ${new Date().getFullYear()}</h4>
+      <h4>My Blog &copy; \${new Date().getFullYear()}</h4>
     </footer>
   \`;
 
