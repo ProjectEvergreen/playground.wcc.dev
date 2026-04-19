@@ -21,7 +21,7 @@
     "lint": "oxlint",
     "format": "oxfmt",
     "format:check": "oxfmt --check",
-    "check": "tsgo --ignoreConfig",
+    "check": "tsgo --ignoreConfig --noEmit",
     "prepare": "husky",
     "postinstall": "patch-package"
   },
