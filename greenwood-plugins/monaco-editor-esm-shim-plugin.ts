@@ -1,8 +1,3 @@
-import { generate } from "astring";
-// @ts-expect-error
-import { ACORN_OPTIONS } from "@greenwood/cli/src/lib/parsing-utils.js";
-import * as acorn from "acorn";
-import * as walk from "acorn-walk";
 import type { ResourcePlugin } from "@greenwood/cli";
 
 // https://github.com/microsoft/monaco-editor/issues/886
@@ -22,31 +17,10 @@ class StripCssImportsResource {
   }
 
   async intercept(url: URL, request: Request, response: Response) {
-    // console.log("Intercepting Monaco Editor ESM resource:", url.pathname);
     const contents = await response.text();
-    // TODO: acorn my be too heavy for this. could maybe just do a naive string replace
-    const tree = acorn.parse(contents, ACORN_OPTIONS);
+    const stripped = contents.replace(/^\s*import\s+[^;]*['"]([^'"]+\.css)['"]\s*;?\s*$/gm, "");
 
-    walk.simple(tree, {
-      ImportDeclaration(node) {
-        // @ts-expect-error for us value will (probably) always be a string
-        if (node?.source?.value?.endsWith(".css")) {
-          // console.log("Stripping CSS import:", node.source.value);
-
-          tree.body.forEach((element) => {
-            if (
-              element.type === "ImportDeclaration" &&
-              element.source.value === node.source.value
-            ) {
-              // Remove the element from the body
-              tree.body = tree.body.filter((child) => child !== element);
-            }
-          });
-        }
-      },
-    });
-
-    return new Response(generate(tree), {
+    return new Response(stripped, {
       headers: {
         "Content-Type": this.contentType,
       },
@@ -57,7 +31,7 @@ class StripCssImportsResource {
 export function monacoEditorEsmShimPlugin(): ResourcePlugin {
   return {
     type: "resource",
-    name: "monaco-editor-esm-shim-plugin:resource",
+    name: "monaco-editor-strip-css-imports-plugin",
     provider: () => new StripCssImportsResource(),
   };
 }

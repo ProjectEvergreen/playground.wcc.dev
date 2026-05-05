@@ -68,6 +68,7 @@ class ReplBundlerResource {
   }
 }
 
+// TODO: add a plugin to silence noisy circular imports warning
 export function replBundlerResourcePlugin(): ResourcePlugin {
   return {
     type: "resource",

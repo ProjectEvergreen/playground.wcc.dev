@@ -52,14 +52,6 @@ body {
   background-color: var(--color-background);
 }
 
-/* 
-main {
-  max-width: 1440px;
-  margin: 20px auto;
-  width: 100%;
-  padding: 0 1rem;
-} */
-
 h1,
 h2,
 h3,
@@ -90,4 +82,9 @@ a:focus {
   position: absolute;
   white-space: nowrap;
   width: 1px;
+}
+
+/* https://stackoverflow.com/a/71876526/417806 */
+.monaco-editor {
+  position: absolute !important;
 }
