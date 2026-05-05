@@ -1,4 +1,5 @@
 import * as monaco from "monaco-editor";
+import { prettify } from "htmlfy";
 
 const inputContainer = document.getElementById("input-content") as HTMLDivElement;
 const outputContainer = document.getElementById("output-content") as HTMLDivElement;
@@ -70,12 +71,11 @@ document.addEventListener("DOMContentLoaded", () => {
     language: "javascript",
     ...commonTheme,
   });
-  inputEditor.updateOptions({ fontFamily: "Georgia" });
   const outputEditor = monaco.editor.create(outputContainer, {
     language: "html",
     ...commonTheme,
+    readOnly: true,
   });
-  outputEditor.updateOptions({ fontFamily: "Geist-Mono, monospace" });
 
   // listen for changes in the input editor and send the updated code to the worker for compilation
   inputEditor.onDidChangeModelContent(() => {
@@ -84,7 +84,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // once the worker sends back the compiled HTML, update the output editor with the result
   worker.onmessage = (result) => {
-    outputEditor.setValue(result.data.html.trim());
+    outputEditor.setValue(prettify(result.data.html));
   };
 
   // trigger an initial compilation with the default input contents

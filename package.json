@@ -27,6 +27,7 @@
   },
   "dependencies": {
     "geist": "^1.2.0",
+    "htmlfy": "^1.0.1",
     "monaco-editor": "^0.55.1",
     "open-props": "^1.7.23"
   },
