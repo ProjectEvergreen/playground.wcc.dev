@@ -1,3 +1,43 @@
+diff --git a/node_modules/@greenwood/cli/src/config/rollup.config.js b/node_modules/@greenwood/cli/src/config/rollup.config.js
+index 5490610..ba8a4f6 100644
+--- a/node_modules/@greenwood/cli/src/config/rollup.config.js
++++ b/node_modules/@greenwood/cli/src/config/rollup.config.js
+@@ -514,7 +514,7 @@ function greenwoodSyncImportAttributes(compilation) {
+               } else {
+                 // waiting on Rollup to formally support `with`
+                 // https://github.com/rollup/rollup/issues/5685
+-                bundles[bundle].code = bundles[bundle].code.replace(/assert{/g, "with{");
++                bundles[bundle].code = bundles[bundle].code.replace(/assert{/g, "with{").replace(/assert {/g, "with {");
+               }
+ 
+               // check for app level assets, like say a shared theme.css
+@@ -553,6 +553,7 @@ function greenwoodSyncImportAttributes(compilation) {
+                 };
+                 const ref = that.emitFile(emitConfig);
+                 const importRef = `import.meta.ROLLUP_ASSET_URL_${ref}`;
++                console.log({ ref, importRef })
+ 
+                 bundles[bundle].code = bundles[bundle].code.replace(
+                   value,
+@@ -584,6 +585,7 @@ function greenwoodSyncImportAttributes(compilation) {
+     // since it seems that Rollup will not do it after the bundling hook
+     // https://github.com/rollup/rollup/blob/v3.29.4/docs/plugin-development/index.md#generatebundle
+     async writeBundle(options, bundles) {
++      console.log('----------------------------------')
+       const resourcePlugins = compilation.config.plugins
+         .filter((plugin) => {
+           return plugin.type === "resource";
+@@ -599,8 +601,9 @@ function greenwoodSyncImportAttributes(compilation) {
+ 
+           if (externalizedResources.includes(ext)) {
+             const hash = fileName.split(".")[fileName.split(".").length - 2];
++            console.log({ fileName, asset, hash })
+ 
+-            if (fileName.replace(`.${hash}`, "") === asset) {
++            if (fileName.replace(`.${hash}`, "").replace(/_20/g, '%20') === asset) {
+               unbundledAssetsRefMapper[asset].importers.forEach((importer, idx) => {
+                 let contents = fs.readFileSync(
+                   new URL(`./${importer}`, compilation.context.outputDir),
 diff --git a/node_modules/@greenwood/cli/src/lifecycles/serve.js b/node_modules/@greenwood/cli/src/lifecycles/serve.js
 index beff516..d4c24ce 100644
 --- a/node_modules/@greenwood/cli/src/lifecycles/serve.js

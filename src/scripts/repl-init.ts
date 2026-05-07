@@ -1,5 +1,6 @@
 import * as monaco from "monaco-editor";
 import { prettify } from "htmlfy";
+import nightOwlTheme from "../../node_modules/monaco-themes/themes/Night Owl.json" with { type: "json" };
 
 const inputContainer = document.getElementById("input-content") as HTMLDivElement;
 const outputContainer = document.getElementById("output-content") as HTMLDivElement;
@@ -55,12 +56,19 @@ export default Footer;
 customElements.define('wcc-footer', Footer);
 `;
 
+monaco.editor.defineTheme("custom-theme", {
+  ...nightOwlTheme,
+  // have to specify `base` explicitly or else TS complains
+  base: "vs-dark",
+});
+
 const commonSettings = {
   fontStyle: "Geist-Mono",
   fontSize: 16,
   minimap: { enabled: false },
   colorDecorators: false, // Disables hex color swatches and picker
   automaticLayout: true,
+  theme: "custom-theme",
 };
 
 document.addEventListener("DOMContentLoaded", () => {
