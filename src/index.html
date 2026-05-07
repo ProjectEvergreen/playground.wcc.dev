@@ -40,18 +40,18 @@
       #output-container {
         flex: 1;
         width: 100%;
-        font-family: var(--font-secondary);
       }
 
       #input-content,
       #output-content {
         width: 100%;
         height: 100%;
-        font-family: var(--font-secondary);
       }
 
+      /* https://stackoverflow.com/a/71876526/417806 */
       .monaco-editor {
-        font-family: var(--font-secondary);
+        position: absolute !important;
+        padding: var(--size-2);
       }
     </style>
   </head>

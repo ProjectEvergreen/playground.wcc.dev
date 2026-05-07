@@ -38,7 +38,6 @@
 }
 
 * {
-  font-family: var(--font-primary);
   font-size: var(--font-size-3);
   box-sizing: border-box;
   padding: 0;
@@ -46,6 +45,7 @@
 }
 
 body {
+  font-family: var(--font-primary);
   display: flex;
   flex-direction: column;
   background-color: var(--color-background);
@@ -81,9 +81,4 @@ a:focus {
   position: absolute;
   white-space: nowrap;
   width: 1px;
-}
-
-/* https://stackoverflow.com/a/71876526/417806 */
-.monaco-editor {
-  position: absolute !important;
 }

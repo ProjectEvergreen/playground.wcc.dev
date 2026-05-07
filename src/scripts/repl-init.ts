@@ -6,6 +6,7 @@ const outputContainer = document.getElementById("output-content") as HTMLDivElem
 const workerUrl = new URL("./repl.ts", import.meta.url);
 const worker = new Worker(workerUrl, { type: "module" });
 
+// TODO:
 // self.MonacoEnvironment = {
 // 	getWorkerUrl: function (moduleId, label) {
 // 		if (label === 'json') {
@@ -54,9 +55,8 @@ export default Footer;
 customElements.define('wcc-footer', Footer);
 `;
 
-const commonTheme = {
-  // fontFamily: "Geist-Mono",
-  fontStyle: "monospace",
+const commonSettings = {
+  fontStyle: "Geist-Mono",
   fontSize: 16,
   minimap: { enabled: false },
   colorDecorators: false, // Disables hex color swatches and picker
@@ -69,11 +69,11 @@ document.addEventListener("DOMContentLoaded", () => {
   const inputEditor = monaco.editor.create(inputContainer, {
     value: inputContents.trim(),
     language: "javascript",
-    ...commonTheme,
+    ...commonSettings,
   });
   const outputEditor = monaco.editor.create(outputContainer, {
     language: "html",
-    ...commonTheme,
+    ...commonSettings,
     readOnly: true,
   });
 
