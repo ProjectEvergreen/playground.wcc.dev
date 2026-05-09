@@ -1,5 +1,6 @@
 import * as monaco from "monaco-editor";
 import { prettify } from "htmlfy";
+// TODO: https://github.com/brijeshb42/monaco-themes/issues/65
 import nightOwlTheme from "../../node_modules/monaco-themes/themes/Night Owl.json" with { type: "json" };
 
 const inputContainer = document.getElementById("input-content") as HTMLDivElement;

@@ -1,16 +1,7 @@
 diff --git a/node_modules/@greenwood/cli/src/config/rollup.config.js b/node_modules/@greenwood/cli/src/config/rollup.config.js
-index 5490610..ba8a4f6 100644
+index 5490610..4affb35 100644
 --- a/node_modules/@greenwood/cli/src/config/rollup.config.js
 +++ b/node_modules/@greenwood/cli/src/config/rollup.config.js
-@@ -514,7 +514,7 @@ function greenwoodSyncImportAttributes(compilation) {
-               } else {
-                 // waiting on Rollup to formally support `with`
-                 // https://github.com/rollup/rollup/issues/5685
--                bundles[bundle].code = bundles[bundle].code.replace(/assert{/g, "with{");
-+                bundles[bundle].code = bundles[bundle].code.replace(/assert{/g, "with{").replace(/assert {/g, "with {");
-               }
- 
-               // check for app level assets, like say a shared theme.css
 @@ -553,6 +553,7 @@ function greenwoodSyncImportAttributes(compilation) {
                  };
                  const ref = that.emitFile(emitConfig);
@@ -94,16 +85,3 @@ index beff516..d4c24ce 100644
  
            return Promise.resolve(merged);
          } else {
-diff --git a/node_modules/@greenwood/cli/src/plugins/resource/plugin-standard-javascript.js b/node_modules/@greenwood/cli/src/plugins/resource/plugin-standard-javascript.js
-index 0f54727..dbf1ea8 100644
---- a/node_modules/@greenwood/cli/src/plugins/resource/plugin-standard-javascript.js
-+++ b/node_modules/@greenwood/cli/src/plugins/resource/plugin-standard-javascript.js
-@@ -78,7 +78,7 @@ const greenwoodPluginStandardJavascript = [
-     type: "rollup",
-     name: "plugin-standard-javascript:rollup",
-     provider: (compilation) => {
--      return compilation.config.optimization !== "none" ? [terser()] : [];
-+      return compilation.config.optimization !== "none" ? [] : [];
-     },
-   },
- ];
