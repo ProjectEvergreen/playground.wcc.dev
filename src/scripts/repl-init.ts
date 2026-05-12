@@ -8,7 +8,7 @@ const outputContainer = document.getElementById("output-content") as HTMLDivElem
 const workerUrl = new URL("./repl.ts", import.meta.url);
 const worker = new Worker(workerUrl, { type: "module" });
 
-// TODO:
+// TODO: https://github.com/ProjectEvergreen/playground.wcc.dev/issues/22
 // self.MonacoEnvironment = {
 // 	getWorkerUrl: function (moduleId, label) {
 // 		if (label === 'json') {
