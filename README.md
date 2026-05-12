@@ -8,6 +8,8 @@ Playground repository for [wcc.dev](https://www.wcc.dev) built using [**Greenwoo
 1. Have NodeJS LTS installed (or run `nvm use`)
 1. Run `npm ci`
 
+> _This project leverages TypeScript's new [native preview](https://github.com/microsoft/typescript-go), so make sure you configure your editor's LSP accordingly._
+
 ## Commands
 
 To start the local development server, run:
