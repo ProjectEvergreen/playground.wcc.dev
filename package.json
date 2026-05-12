@@ -21,7 +21,7 @@
     "lint": "oxlint",
     "format": "oxfmt",
     "format:check": "oxfmt --check",
-    "check": "tsgo --ignoreConfig --noEmit --module esnext",
+    "check": "tsgo",
     "prepare": "husky",
     "postinstall": "patch-package"
   },
@@ -37,13 +37,12 @@
     "@greenwood/plugin-css-modules": "^0.34.0-alpha.4",
     "@greenwood/plugin-import-jsx": "^0.34.0-alpha.4",
     "@greenwood/plugin-import-raw": "^0.34.0-alpha.4",
-    "@typescript/native-preview": "^7.0.0-dev.20260506.1",
+    "@typescript/native-preview": "^7.0.0-dev.20260512.1",
     "husky": "^9.1.7",
     "lint-staged": "^16.2.7",
     "oxfmt": "^0.28.0",
     "oxlint": "^1.43.0",
-    "patch-package": "^8.0.1",
-    "typescript": "^6.0.2"
+    "patch-package": "^8.0.1"
   },
   "overrides": {
     "wc-compiler": "~0.20.0"
