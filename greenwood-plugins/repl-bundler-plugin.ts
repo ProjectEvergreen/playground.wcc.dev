@@ -1,5 +1,5 @@
 import * as rollup from "rollup";
-// TODO: depend on these modules first party
+// TODO: depend on these modules first party?
 import { nodeResolve } from "@rollup/plugin-node-resolve";
 import commonjs from "@rollup/plugin-commonjs";
 import type { ResourcePlugin } from "@greenwood/cli";
@@ -52,10 +52,22 @@ class ReplBundlerResource {
         nodeResolve(),
         commonjs(),
       ],
+      onLog(level, log) {
+        // silence circular dependency warnings from sucrase
+        if (
+          log.pluginCode === "CIRCULAR_DEPENDENCY" &&
+          log.message.includes("node_modules/sucrase")
+        ) {
+          return;
+        }
+      },
     });
     const { output } = await bundle.generate({
       format: "esm",
     });
+
+    // Create a buffer from the code string to avoid body consumption issues
+    // const codeBuffer = Buffer.from(output[0].code, 'utf-8');
 
     return new Response(output[0].code, {
       headers: {

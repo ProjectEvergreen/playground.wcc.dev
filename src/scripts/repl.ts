@@ -1,7 +1,7 @@
 // TODO: have this come from WCC
 // import { renderFromInput } from '../../src/wcc.js';
 // TODO: have wc-compiler expose DOM shim through exports maps
-import "wc-compiler/dom-shim.js";
+import "wc-compiler/dom-shim";
 import { transform } from "sucrase";
 import * as acorn from "acorn";
 import * as walk from "acorn-walk";
