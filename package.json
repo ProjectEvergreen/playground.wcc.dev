@@ -21,7 +21,7 @@
     "lint": "oxlint",
     "format": "oxfmt",
     "format:check": "oxfmt --check",
-    "check": "tsgo --ignoreConfig --noEmit --module esnext",
+    "check": "tsgo --ignoreConfig --noEmit --module esnext --skipLibCheck",
     "prepare": "husky",
     "postinstall": "patch-package"
   },

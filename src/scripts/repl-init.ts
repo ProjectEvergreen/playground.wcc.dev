@@ -93,7 +93,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // once the worker sends back the compiled HTML, update the output editor with the result
   worker.onmessage = (result) => {
-    outputEditor.setValue(prettify(result.data.html));
+    outputEditor.setValue(prettify(result.data.output));
   };
 
   // trigger an initial compilation with the default input contents
