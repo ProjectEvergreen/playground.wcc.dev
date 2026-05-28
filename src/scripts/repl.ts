@@ -11,10 +11,7 @@ onmessage = async (e) => {
 
   try {
     const inputURL = URL.createObjectURL(new Blob([input], { type: "application/javascript" }));
-    console.log("?????", { input, inputURL });
-
-    const { html, metadata } = await renderToString(new URL(inputURL), wrappingEntryTag, props);
-    console.log({ html, metadata });
+    const { html } = await renderToString(new URL(inputURL), wrappingEntryTag, props);
 
     output = html;
   } catch (e) {

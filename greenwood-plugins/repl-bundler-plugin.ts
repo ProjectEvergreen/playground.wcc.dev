@@ -20,22 +20,19 @@ function externalizeFsBuiltinRollupPlugin() {
         return `
           const fs = {
             readFileSync: (url) => {
-              console.log('fs.readFileSync ->', { url });
               const xhr = new XMLHttpRequest();
               xhr.open('GET', url.href, false); 
               xhr.send(null);
 
               if (xhr.status === 200) {
-                console.log(xhr.responseText);
                 return xhr.responseText;
               }
             },
             promises: {
               readFile: async function(url) {
-                console.log('fs.promises.readFile ->', { url });
                 const response = await fetch(url);
                 const text = await response.text();
-                console.log({ url, text });
+
                 return text;
               },
             }
