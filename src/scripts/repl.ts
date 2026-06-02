@@ -3,8 +3,11 @@ import { renderToString } from "wc-compiler";
 onmessage = async (e) => {
   console.log("Worker: Message received from main script", { e });
   const input = e.data[0];
-  const props = e.data[1] ?? null;
+  const language = e.data[1] ?? "javascript";
+  const props = e.data[2] ?? null;
   const wrappingEntryTag = true;
+
+  console.log({ input, language, props });
 
   let err;
   let output;

@@ -72,12 +72,22 @@ const commonSettings = {
   theme: "custom-theme",
 };
 
+const extensionLanguageMapper = {
+  js: "javascript",
+  ts: "typescript",
+  jsx: "javascript",
+  tsx: "typescript",
+};
+
 document.addEventListener("DOMContentLoaded", () => {
   console.log("Initializing Editor...");
+  const languageSelector = document.getElementById("input-language") as HTMLSelectElement;
 
   const inputEditor = monaco.editor.create(inputContainer, {
     value: inputContents.trim(),
-    language: "javascript",
+    language:
+      extensionLanguageMapper[languageSelector.value as keyof typeof extensionLanguageMapper] ??
+      "javascript",
     ...commonSettings,
   });
   const outputEditor = monaco.editor.create(outputContainer, {
@@ -86,13 +96,26 @@ document.addEventListener("DOMContentLoaded", () => {
     readOnly: true,
   });
 
+  languageSelector.addEventListener("change", () => {
+    const language =
+      extensionLanguageMapper[languageSelector.value as keyof typeof extensionLanguageMapper] ??
+      "javascript";
+    monaco.editor.setModelLanguage(inputEditor.getModel()!, language);
+  });
+
   // listen for changes in the input editor and send the updated code to the worker for compilation
   inputEditor.onDidChangeModelContent(() => {
-    worker.postMessage([inputEditor.getValue()]);
+    worker.postMessage([inputEditor.getValue(), languageSelector.value ?? "javascript"]);
   });
 
   // once the worker sends back the compiled HTML, update the output editor with the result
   worker.onmessage = (result) => {
+    if (result.data.err) {
+      console.error("Error in worker:", result.data.err);
+      outputEditor.setValue(`Error: ${result.data.err.message || result.data.err}`);
+      return;
+    }
+
     outputEditor.setValue(prettify(result.data.output));
   };
 
