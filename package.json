@@ -33,10 +33,10 @@
     "open-props": "^1.7.23"
   },
   "devDependencies": {
-    "@greenwood/cli": "~0.34.0-alpha.4",
-    "@greenwood/plugin-css-modules": "^0.34.0-alpha.4",
-    "@greenwood/plugin-import-jsx": "^0.34.0-alpha.4",
-    "@greenwood/plugin-import-raw": "^0.34.0-alpha.4",
+    "@greenwood/cli": "~0.34.0-alpha.6",
+    "@greenwood/plugin-css-modules": "^0.34.0-alpha.6",
+    "@greenwood/plugin-import-jsx": "^0.34.0-alpha.6",
+    "@greenwood/plugin-import-raw": "^0.34.0-alpha.6",
     "@typescript/native-preview": "^7.0.0-dev.20260506.1",
     "husky": "^9.1.7",
     "lint-staged": "^16.2.7",
@@ -44,8 +44,5 @@
     "oxlint": "^1.43.0",
     "patch-package": "^8.0.1",
     "typescript": "^6.0.2"
-  },
-  "overrides": {
-    "wc-compiler": "~0.20.0"
   }
 }

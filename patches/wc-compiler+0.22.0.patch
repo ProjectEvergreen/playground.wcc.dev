@@ -1,0 +1,14 @@
+diff --git a/node_modules/wc-compiler/src/jsx-loader.js b/node_modules/wc-compiler/src/jsx-loader.js
+index 2e24c74..4b871e5 100644
+--- a/node_modules/wc-compiler/src/jsx-loader.js
++++ b/node_modules/wc-compiler/src/jsx-loader.js
+@@ -35,7 +35,8 @@ function getParse(html) {
+ }
+ 
+ export function getParser(moduleURL) {
+-  const ext = moduleURL.pathname.split('.').pop();
++  // TODO: we only get a Blob URL for the REPL, so will have to craft a "faux" URL
++  const ext = moduleURL?.pathname?.split('.')?.pop();
+   const isJSX = ext === 'jsx' || ext === 'tsx';
+ 
+   if (!isJSX) {
