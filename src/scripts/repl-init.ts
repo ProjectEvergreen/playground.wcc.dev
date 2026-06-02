@@ -3,6 +3,23 @@ import { prettify } from "htmlfy";
 // TODO: https://github.com/brijeshb42/monaco-themes/issues/65
 import nightOwlTheme from "../../node_modules/monaco-themes/themes/Night Owl.json" with { type: "json" };
 
+// Token rule overrides applied on top of monaco-themes' Night Owl so the
+// playground matches the Prism "Night Owl" theme used on the wcc.dev website
+// (https://github.com/PrismJS/prism-themes/blob/master/themes/prism-night-owl.css).
+// Monaco rules are evaluated in order, so appending these makes them win over
+// the imported defaults for the same token scopes. See issue #23.
+const prismAlignedRules: monaco.editor.ITokenThemeRule[] = [
+  // Prism styles comments in italic; monaco-themes' Night Owl leaves them upright.
+  { token: "comment", foreground: "637777", fontStyle: "italic" },
+  { token: "comment.line.double-slash", foreground: "637777", fontStyle: "italic" },
+  // Prism uses a single green (rgb(173,219,103) = #addb67) for all .token.string,
+  // while monaco-themes' Night Owl uses peach (#ecc48d) for `string.quoted.*`.
+  // Align the JS/TS string scopes that the playground actually renders.
+  { token: "string.quoted", foreground: "addb67" },
+  { token: "string.quoted.double", foreground: "addb67" },
+  { token: "string.quoted.single", foreground: "addb67" },
+];
+
 const inputContainer = document.getElementById("input-content") as HTMLDivElement;
 const outputContainer = document.getElementById("output-content") as HTMLDivElement;
 const workerUrl = new URL("./repl.ts", import.meta.url);
@@ -61,6 +78,7 @@ monaco.editor.defineTheme("custom-theme", {
   ...nightOwlTheme,
   // have to specify `base` explicitly or else TS complains
   base: "vs-dark",
+  rules: [...nightOwlTheme.rules, ...prismAlignedRules],
 });
 
 const commonSettings = {
