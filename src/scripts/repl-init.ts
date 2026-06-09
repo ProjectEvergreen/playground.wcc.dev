@@ -54,7 +54,7 @@ class Footer extends HTMLElement {
 
 export default Footer;
 
-customElements.define('wcc-footer', Footer);
+customElements.define('x-footer', Footer);
 `;
 
 monaco.editor.defineTheme("custom-theme", {
@@ -72,12 +72,30 @@ const commonSettings = {
   theme: "custom-theme",
 };
 
-const extensionLanguageMapper = {
-  js: "javascript",
-  ts: "typescript",
-  jsx: "javascript",
-  tsx: "typescript",
-};
+// https://gist.github.com/RoboPhred/f767bea5cbc972e04155a625dc11da11
+// Important Bit #1: Typescript must see the 'file' it is editing as having a .tsx extension
+const modelUri = monaco.Uri.file("file.tsx");
+
+// Important Bit #2
+// By default, monaco use the "value" property to create its own model without any extensions, so typescript assumes ".ts"
+// We need to create a custom model using the desired file name (uri). See the last arg.
+const codeModel = monaco.editor.createModel(
+  inputContents.trim(),
+  "typescript",
+  modelUri, // Pass the file name to the model here.
+);
+
+// Important Bit #3: Tell typescript to use 'react' for jsx files.
+// TODO: support wc-compiler jsxImportSource
+monaco.typescript.typescriptDefaults.setCompilerOptions({
+  jsx: monaco.typescript.JsxEmit.Preserve,
+});
+
+// TODO: additional diagnostics
+monaco.typescript.typescriptDefaults.setDiagnosticsOptions({
+  noSemanticValidation: false,
+  noSyntaxValidation: false,
+});
 
 document.addEventListener("DOMContentLoaded", () => {
   console.log("Initializing Editor...");
@@ -85,9 +103,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const inputEditor = monaco.editor.create(inputContainer, {
     value: inputContents.trim(),
-    language:
-      extensionLanguageMapper[languageSelector.value as keyof typeof extensionLanguageMapper] ??
-      "javascript",
+    language: "typescript",
     ...commonSettings,
   });
   const outputEditor = monaco.editor.create(outputContainer, {
@@ -96,12 +112,8 @@ document.addEventListener("DOMContentLoaded", () => {
     readOnly: true,
   });
 
-  languageSelector.addEventListener("change", () => {
-    const language =
-      extensionLanguageMapper[languageSelector.value as keyof typeof extensionLanguageMapper] ??
-      "javascript";
-    monaco.editor.setModelLanguage(inputEditor.getModel()!, language);
-  });
+  inputEditor.setModel(codeModel);
+  monaco.editor.setModelLanguage(inputEditor.getModel()!, "typescript");
 
   // listen for changes in the input editor and send the updated code to the worker for compilation
   inputEditor.onDidChangeModelContent(() => {
